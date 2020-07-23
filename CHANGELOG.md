@@ -1,3 +1,16 @@
+# 1.0.0 (2020-07-23)
+
+
+### Bug Fixes
+
+* update doc configs ([cc1ce8a](https://github.com/json-schema-tools/reference-resolver/commit/cc1ce8a587d1b3d9eae0bb8aaf8d266450f37746))
+* update package-lock ([310627b](https://github.com/json-schema-tools/reference-resolver/commit/310627b56e23ae306bc4a648d396a53dbbee5efe))
+
+
+### Features
+
+* first commit ([2b3da1a](https://github.com/json-schema-tools/reference-resolver/commit/2b3da1a9bf39695ebd8b2c387790ccea9c87f4fa))
+
 # [1.1.0](https://github.com/json-schema-tools/dereferencer/compare/1.0.15...1.1.0) (2020-07-21)
 
 
