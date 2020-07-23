@@ -1,5 +1,5 @@
 {
-  "name": "@json-schema-tools/dereferencer",
+  "name": "@json-schema-tools/reference-resolver",
   "mode": "file",
   "inputFiles": [
     "./src/index.ts"
@@ -14,11 +14,9 @@
     "src/*.test.ts"
   ],
   "toc": [
-    "Dereferencer",
-    "DereferencerOptions",
+    "referenceResolver",
     "InvalidFileSystemPathError",
     "InvalidJsonPointerRefError",
-    "NonJsonRefError",
-    "NonStringRefError"
+    "NonJsonRefError"
   ]
 }

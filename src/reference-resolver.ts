@@ -117,6 +117,10 @@ export default (fetch: any, fs: any) => {
     return new Promise((resolve) => fs.readFile(f, "utf8", (err: any, data: any) => resolve(data)));
   };
 
+  /**
+   * Given a $ref string, it will return the underlying pointed-to value.
+   * For remote references, the root object is not used.
+   */
   const resolveReference = async (ref: string, root: any): Promise<any> => {
     if (ref[0] === "#") {
       const withoutHash = ref.replace("#", "");
