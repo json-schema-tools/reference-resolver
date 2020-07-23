@@ -1,0 +1,47 @@
+{
+  "name": "@json-schema-tools/reference-resolver",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "build/index.js",
+  "browser": "build/index-web.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "npm run build:code && typedoc --out docs &&  touch docs/.nojekyll",
+    "build:code": "tsc",
+    "lint": "tslint --fix -p .",
+    "test": "npm run test:unit && npm run test:web",
+    "test:unit": "npm run lint && jest --coverage",
+    "test:web": "npm run build:code && webpack && rm -rf dist"
+  },
+  "author": "BelfordZ<belfordz66@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/json-schema-tools/reference-resolver/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/json-schema-tools/reference-resolver.git"
+  },
+  "files": [
+    "build",
+    "!build/**/*.test.*"
+  ],
+  "devDependencies": {
+    "@types/isomorphic-fetch": "0.0.35",
+    "@types/jest": "^26.0.3",
+    "@types/node": "^14.0.14",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^6.1.2",
+    "typedoc": "^0.17.8",
+    "typescript": "^3.9.6",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "@json-schema-spec/json-pointer": "^0.1.2",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}

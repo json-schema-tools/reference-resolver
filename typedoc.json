@@ -1,0 +1,24 @@
+{
+  "name": "@json-schema-tools/dereferencer",
+  "mode": "file",
+  "inputFiles": [
+    "./src/index.ts"
+  ],
+  "out": "docs",
+  "readme": "./README.md",
+  "exclude": [
+    "node_modules",
+    "docs",
+    "build",
+    "jest.config.js",
+    "src/*.test.ts"
+  ],
+  "toc": [
+    "Dereferencer",
+    "DereferencerOptions",
+    "InvalidFileSystemPathError",
+    "InvalidJsonPointerRefError",
+    "NonJsonRefError",
+    "NonStringRefError"
+  ]
+}
