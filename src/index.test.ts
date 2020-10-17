@@ -48,6 +48,15 @@ describe("referenceResolver", () => {
     }
   });
 
+  it("works when using relative file path & no prefixing", async () => {
+    expect.assertions(1);
+    try {
+      await referenceResolver("test-schema-1.json", {});
+    } catch (e) {
+      expect(e).toBeInstanceOf(InvalidFileSystemPathError);
+    }
+  });
+
   it("errors on urls that arent real", async () => {
     expect.assertions(1);
     try {
