@@ -86,6 +86,10 @@ export class InvalidFileSystemPathError implements Error {
   }
 }
 
+const isUrlLike = (s: string) => {
+  return s.includes("://") || s.includes("localhost:");
+}
+
 /**
  * Error thrown when given an invalid file system path as a reference.
  *
@@ -142,7 +146,7 @@ export default (fetch: any, fs: any) => {
       }
 
       return reffedSchema;
-    } else if (["$", ".", "/", ".."].indexOf(ref[0]) !== -1) {
+    } else if (isUrlLike(ref) === false) {
       throw new InvalidFileSystemPathError(ref);
     }
 
