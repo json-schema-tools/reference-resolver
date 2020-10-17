@@ -1,3 +1,14 @@
+## [1.0.2](https://github.com/json-schema-tools/reference-resolver/compare/1.0.1...1.0.2) (2020-10-17)
+
+
+### Bug Fixes
+
+* add more tests to clarify file reference relativity ([485fcbb](https://github.com/json-schema-tools/reference-resolver/commit/485fcbbe7bfd2c149249becb204784ece789a71d))
+* handle filepath error checks differently ([8e7e69f](https://github.com/json-schema-tools/reference-resolver/commit/8e7e69f2b42723fdacb6b5ce0918253a9bd2464c))
+* update node version ([1779adb](https://github.com/json-schema-tools/reference-resolver/commit/1779adb0a10e6d2b796ffebaf884254076977065))
+* update remaining deps ([d4e2b62](https://github.com/json-schema-tools/reference-resolver/commit/d4e2b62296b955df2cfdc741d5d225995d768b21))
+* update typing deps ([b7c0678](https://github.com/json-schema-tools/reference-resolver/commit/b7c06786c8ae74bc173acec0a2088bf9f5e5c199))
+
 ## [1.0.1](https://github.com/json-schema-tools/reference-resolver/compare/1.0.0...1.0.1) (2020-10-17)
 
 
