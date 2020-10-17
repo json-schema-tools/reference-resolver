@@ -48,13 +48,25 @@ describe("referenceResolver", () => {
     }
   });
 
-  it("works when using relative file path & no prefixing", async () => {
+  it("files are not relative to the src folder", async () => {
     expect.assertions(1);
     try {
       await referenceResolver("test-schema-1.json", {});
     } catch (e) {
       expect(e).toBeInstanceOf(InvalidFileSystemPathError);
     }
+  });
+
+  it("files are relative to the folder the script is run from (in this case, project root)", async () => {
+    expect.assertions(1);
+    const reffed = await referenceResolver("src/test-schema-1.json", {});
+    expect(reffed).toBeDefined();
+  });
+
+  it("works with nested folders when using relative file path & no prefixing", async () => {
+    expect.assertions(1);
+    const resolved = await referenceResolver("nestedtest/test-schema-1.json", {});
+    expect(resolved.$ref).toBe("./src/test-schema.json");
   });
 
   it("errors on urls that arent real", async () => {
