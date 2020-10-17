@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/json-schema-tools/reference-resolver/compare/1.0.0...1.0.1) (2020-10-17)
+
+
+### Bug Fixes
+
+* add badges to readme ([7386eb6](https://github.com/json-schema-tools/reference-resolver/commit/7386eb603eb234749238f4c59fb304896fa3d668))
+
 # 1.0.0 (2020-07-23)
 
 
