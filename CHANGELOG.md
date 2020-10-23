@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/json-schema-tools/reference-resolver/compare/1.0.2...1.0.3) (2020-10-23)
+
+
+### Bug Fixes
+
+* add funding ([959d046](https://github.com/json-schema-tools/reference-resolver/commit/959d046457a270281d2cabfcdd0b97c72033b78b))
+
 ## [1.0.2](https://github.com/json-schema-tools/reference-resolver/compare/1.0.1...1.0.2) (2020-10-17)
 
 
