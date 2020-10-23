@@ -86,7 +86,7 @@
 				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> referenceResolver = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@json-schema-tools/reference-resolver&quot;</span>).default;
 
 
-referenceResolver(<span class="hljs-string">&quot;#/properties/foo&quot;</span>, { properties: { foo: <span class="hljs-number">123</span> } }); <span class="hljs-comment">// returns &#x27;123&#x27;</span>
+referenceResolver(<span class="hljs-string">&quot;#/properties/foo&quot;</span>, { <span class="hljs-attr">properties</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> } }); <span class="hljs-comment">// returns &#x27;123&#x27;</span>
 referenceResolver(<span class="hljs-string">&quot;https://foo.com/&quot;</span>, {}); <span class="hljs-comment">// returns what ever json foo.com returns</span>
 referenceResolver(<span class="hljs-string">&quot;../my-object.json&quot;</span>, {}); <span class="hljs-comment">// you get teh idea</span>
 </code></pre>
@@ -106,13 +106,13 @@ referenceResolver(<span class="hljs-string">&quot;../my-object.json&quot;</span>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/invalidfilesystempatherror.html" class="tsd-kind-icon">Invalid<wbr>File<wbr>System<wbr>Path<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/invalidjsonpointerreferror.html" class="tsd-kind-icon">Invalid<wbr>Json<wbr>Pointer<wbr>Ref<wbr>Error</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-is-external">
 						<a href="classes/nonjsonreferror.html" class="tsd-kind-icon">Non<wbr>Json<wbr>Ref<wbr>Error</a>
 					</li>
 				</ul>
@@ -124,10 +124,6 @@ referenceResolver(<span class="hljs-string">&quot;../my-object.json&quot;</span>
 	<div class="container">
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-			</ul>
 		</div>
 	</div>
 </footer>
