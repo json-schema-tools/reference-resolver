@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/json-schema-tools/reference-resolver/compare/1.0.3...1.0.4) (2020-10-23)
+
+
+### Bug Fixes
+
+* oc name ([1d7bcd5](https://github.com/json-schema-tools/reference-resolver/commit/1d7bcd5fbd2db6dab09b9ce8b8fdbea0b202cc1f))
+
 ## [1.0.3](https://github.com/json-schema-tools/reference-resolver/compare/1.0.2...1.0.3) (2020-10-23)
 
 
