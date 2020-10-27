@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/json-schema-tools/reference-resolver/compare/1.0.4...1.0.5) (2020-10-27)
+
+
+### Bug Fixes
+
+* restore browser support ([61e766c](https://github.com/json-schema-tools/reference-resolver/commit/61e766c8fb89a5b413011779188ea39bf64409fc))
+
 ## [1.0.4](https://github.com/json-schema-tools/reference-resolver/compare/1.0.3...1.0.4) (2020-10-23)
 
 
