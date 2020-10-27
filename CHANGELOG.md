@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/json-schema-tools/reference-resolver/compare/1.0.5...1.0.6) (2020-10-27)
+
+
+### Bug Fixes
+
+* update readme ([e9d42d6](https://github.com/json-schema-tools/reference-resolver/commit/e9d42d61d5651d8988a1d1db317d90aaf4d51a47))
+
 ## [1.0.5](https://github.com/json-schema-tools/reference-resolver/compare/1.0.4...1.0.5) (2020-10-27)
 
 
