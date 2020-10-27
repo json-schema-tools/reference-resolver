@@ -17,7 +17,7 @@ Works in browser & in node (file system refs ignored in browser)
 
 ## Getting Started
 
-`npm install @json-schema-tools/dereferencer`
+`npm install @json-schema-tools/reference-resolver`
 
 ```typescript
 const referenceResolver = require("@json-schema-tools/reference-resolver").default;
