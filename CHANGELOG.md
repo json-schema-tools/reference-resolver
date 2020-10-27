@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/json-schema-tools/reference-resolver/compare/1.0.6...1.0.7) (2020-10-27)
+
+
+### Bug Fixes
+
+* browser build mock fs not working still ([ffadb24](https://github.com/json-schema-tools/reference-resolver/commit/ffadb240f205d46f8981388188a9abc52e12c28a))
+
 ## [1.0.6](https://github.com/json-schema-tools/reference-resolver/compare/1.0.5...1.0.6) (2020-10-27)
 
 
