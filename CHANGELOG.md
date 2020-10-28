@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/json-schema-tools/reference-resolver/compare/1.0.7...1.1.0) (2020-10-28)
+
+
+### Bug Fixes
+
+* make test coverage 100 and fix test case ([84da5c8](https://github.com/json-schema-tools/reference-resolver/commit/84da5c89d282cd99972d745ce52b19517882ccb9))
+
+
+### Features
+
+* handle hash fragment of json pointers ([dd85381](https://github.com/json-schema-tools/reference-resolver/commit/dd85381c2b9e08ba9bca4d5beeee351f921c6043))
+
 ## [1.0.7](https://github.com/json-schema-tools/reference-resolver/compare/1.0.6...1.0.7) (2020-10-27)
 
 
