@@ -90,8 +90,19 @@ describe("referenceResolver", () => {
 
 
 describe("refs with hash fragment / internal reference component", () => {
-  it("works with file paths", async () => {
-    expect(await referenceResolver("./src/test-obj.json#/type", {})).toBe("string");
+  describe("files", () => {
+    it("works in simple case", async () => {
+      expect(await referenceResolver("./src/test-obj.json#/type", {})).toBe("string");
+    });
+
+    it("errors when the json pointer is invalid", async () => {
+      expect.assertions(1);
+      try {
+        await referenceResolver("./src/test-obj.json#balony", {});
+      } catch (e) {
+        expect(e).toBeInstanceOf(InvalidJsonPointerRefError);
+      }
+    });
   });
 
   describe("urls", () => {
@@ -107,7 +118,7 @@ describe("refs with hash fragment / internal reference component", () => {
       try {
         await referenceResolver("https://meta.open-rpc.org/#type", {});
       } catch (e) {
-        expect(e).toBeInstanceOf(InvalidRemoteURLError);
+        expect(e).toBeInstanceOf(InvalidJsonPointerRefError);
       }
     });
 
@@ -116,7 +127,7 @@ describe("refs with hash fragment / internal reference component", () => {
       try {
         await referenceResolver("https://meta.open-rpc.org/#properties/#openrpc", {});
       } catch (e) {
-        expect(e).toBeInstanceOf(InvalidRemoteURLError);
+        expect(e).toBeInstanceOf(InvalidJsonPointerRefError);
       }
     });
   });

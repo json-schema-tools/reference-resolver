@@ -136,7 +136,6 @@ export default (fetch: any, fs: any) => {
       }
     }
 
-    // copy hash fragment from the filepath / url
     const hashFragmentSplit = ref.split("#");
     let hashFragment;
     if (hashFragmentSplit.length > 1) {
@@ -149,7 +148,6 @@ export default (fetch: any, fs: any) => {
     }
 
     if (await fileExistsAndReadable(hashlessRef) === true) {
-      // pull off the hash fragment first
       const fileContents = await readFile(hashlessRef);
       let reffedSchema;
       try {
@@ -172,22 +170,23 @@ export default (fetch: any, fs: any) => {
       throw new InvalidFileSystemPathError(ref);
     }
 
+    let result;
     try {
-      // leave the hash fragment on
-      // but evaluate the result after
-      const result = await fetch(ref).then((r: any) => r.json());
-      if (hashFragment) {
-        try {
-          const pointer = Ptr.parse(hashFragment);
-          return Promise.resolve(pointer.eval(result));
-        } catch (e) {
-          throw new InvalidJsonPointerRefError({ $ref: ref });
-        }
-      }
-      return result;
+      result = await fetch(ref).then((r: any) => r.json());
     } catch (e) {
       throw new InvalidRemoteURLError(ref);
     }
+
+    if (hashFragment) {
+      try {
+        const pointer = Ptr.parse(hashFragment);
+        return Promise.resolve(pointer.eval(result));
+      } catch (e) {
+        throw new InvalidJsonPointerRefError({ $ref: ref });
+      }
+    }
+
+    return result;
   };
 
   return resolveReference;
