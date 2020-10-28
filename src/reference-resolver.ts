@@ -136,8 +136,19 @@ export default (fetch: any, fs: any) => {
       }
     }
 
-    if (await fileExistsAndReadable(ref) === true) {
-      const fileContents = await readFile(ref);
+    const hashFragmentSplit = ref.split("#");
+    let hashFragment;
+    if (hashFragmentSplit.length > 1) {
+      hashFragment = hashFragmentSplit[hashFragmentSplit.length - 1];
+    }
+
+    let hashlessRef = ref;
+    if (hashFragment) {
+      hashlessRef = ref.replace(`#${hashFragment}`, "");
+    }
+
+    if (await fileExistsAndReadable(hashlessRef) === true) {
+      const fileContents = await readFile(hashlessRef);
       let reffedSchema;
       try {
         reffedSchema = JSON.parse(fileContents);
@@ -145,16 +156,37 @@ export default (fetch: any, fs: any) => {
         throw new NonJsonRefError({ $ref: ref }, fileContents);
       }
 
+      if (hashFragment) {
+        try {
+          const pointer = Ptr.parse(hashFragment);
+          return Promise.resolve(pointer.eval(reffedSchema));
+        } catch (e) {
+          throw new InvalidJsonPointerRefError({ $ref: ref });
+        }
+      }
+
       return reffedSchema;
     } else if (isUrlLike(ref) === false) {
       throw new InvalidFileSystemPathError(ref);
     }
 
+    let result;
     try {
-      return await fetch(ref).then((r: any) => r.json());
+      result = await fetch(ref).then((r: any) => r.json());
     } catch (e) {
       throw new InvalidRemoteURLError(ref);
     }
+
+    if (hashFragment) {
+      try {
+        const pointer = Ptr.parse(hashFragment);
+        return Promise.resolve(pointer.eval(result));
+      } catch (e) {
+        throw new InvalidJsonPointerRefError({ $ref: ref });
+      }
+    }
+
+    return result;
   };
 
   return resolveReference;

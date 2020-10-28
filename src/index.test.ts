@@ -87,3 +87,48 @@ describe("referenceResolver", () => {
     }
   });
 });
+
+
+describe("refs with hash fragment / internal reference component", () => {
+  describe("files", () => {
+    it("works in simple case", async () => {
+      expect(await referenceResolver("./src/test-obj.json#/type", {})).toBe("string");
+    });
+
+    it("errors when the json pointer is invalid", async () => {
+      expect.assertions(1);
+      try {
+        await referenceResolver("./src/test-obj.json#balony", {});
+      } catch (e) {
+        expect(e).toBeInstanceOf(InvalidJsonPointerRefError);
+      }
+    });
+  });
+
+  describe("urls", () => {
+    it("works with forward slashes surrounding the hash", async () => {
+      expect(await referenceResolver("https://meta.open-rpc.org/#/type", {})).toBe("object");
+    });
+    it("works without slash infront of hash, but with one after", async () => {
+      expect(await referenceResolver("https://meta.open-rpc.org#/type", {})).toBe("object");
+    });
+
+    it("errors when the json pointer is invalid", async () => {
+      expect.assertions(1);
+      try {
+        await referenceResolver("https://meta.open-rpc.org/#type", {});
+      } catch (e) {
+        expect(e).toBeInstanceOf(InvalidJsonPointerRefError);
+      }
+    });
+
+    it("errors when you have 2 hash fragments in 1 ref", async () => {
+      expect.assertions(1);
+      try {
+        await referenceResolver("https://meta.open-rpc.org/#properties/#openrpc", {});
+      } catch (e) {
+        expect(e).toBeInstanceOf(InvalidJsonPointerRefError);
+      }
+    });
+  });
+});
