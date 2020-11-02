@@ -168,7 +168,7 @@ export default (fetch: any, fs: any) => {
 
     let result;
     try {
-      result = await fetch(ref).then((r: any) => r.json());
+      result = await fetch(hashlessRef).then((r: any) => r.json());
     } catch (e) {
       throw new InvalidRemoteURLError(ref);
     }
