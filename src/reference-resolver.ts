@@ -121,19 +121,23 @@ export default (fetch: any, fs: any) => {
     return new Promise((resolve) => fs.readFile(f, "utf8", (err: any, data: any) => resolve(data)));
   };
 
+  const resolvePointer = (ref: string, root: any): any => {
+    try {
+      const withoutHash = ref.replace("#", "");
+      const pointer = Ptr.parse(withoutHash);
+      return pointer.eval(root);
+    } catch (e) {
+      throw new InvalidJsonPointerRefError({ $ref: ref });
+    }
+  };
+
   /**
    * Given a $ref string, it will return the underlying pointed-to value.
    * For remote references, the root object is not used.
    */
   const resolveReference = async (ref: string, root: any): Promise<any> => {
     if (ref[0] === "#") {
-      const withoutHash = ref.replace("#", "");
-      try {
-        const pointer = Ptr.parse(withoutHash);
-        return Promise.resolve(pointer.eval(root));
-      } catch (e) {
-        throw new InvalidJsonPointerRefError({ $ref: ref });
-      }
+      return resolvePointer(ref, root);
     }
 
     const hashFragmentSplit = ref.split("#");
@@ -142,10 +146,7 @@ export default (fetch: any, fs: any) => {
       hashFragment = hashFragmentSplit[hashFragmentSplit.length - 1];
     }
 
-    let hashlessRef = ref;
-    if (hashFragment) {
-      hashlessRef = ref.replace(`#${hashFragment}`, "");
-    }
+    const hashlessRef = hashFragmentSplit[0];
 
     if (await fileExistsAndReadable(hashlessRef) === true) {
       const fileContents = await readFile(hashlessRef);
@@ -157,12 +158,7 @@ export default (fetch: any, fs: any) => {
       }
 
       if (hashFragment) {
-        try {
-          const pointer = Ptr.parse(hashFragment);
-          return Promise.resolve(pointer.eval(reffedSchema));
-        } catch (e) {
-          throw new InvalidJsonPointerRefError({ $ref: ref });
-        }
+        reffedSchema = resolvePointer(hashFragment, reffedSchema);
       }
 
       return reffedSchema;
@@ -178,12 +174,7 @@ export default (fetch: any, fs: any) => {
     }
 
     if (hashFragment) {
-      try {
-        const pointer = Ptr.parse(hashFragment);
-        return Promise.resolve(pointer.eval(result));
-      } catch (e) {
-        throw new InvalidJsonPointerRefError({ $ref: ref });
-      }
+      result = resolvePointer(hashFragment, result);
     }
 
     return result;
