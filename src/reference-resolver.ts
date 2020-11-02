@@ -137,7 +137,7 @@ export default (fetch: any, fs: any) => {
    */
   const resolveReference = async (ref: string, root: any): Promise<any> => {
     if (ref[0] === "#") {
-      return resolvePointer(ref, root);
+      return Promise.resolve(resolvePointer(ref, root));
     }
 
     const hashFragmentSplit = ref.split("#");
