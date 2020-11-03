@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/json-schema-tools/reference-resolver/compare/1.1.0...1.1.1) (2020-11-03)
+
+
+### Bug Fixes
+
+* refactor code into shared method ([794a8ce](https://github.com/json-schema-tools/reference-resolver/commit/794a8ce0bb22519af0c04992df74e2da7cabc09c))
+* return a promise once again ([772302d](https://github.com/json-schema-tools/reference-resolver/commit/772302da07e808f56053be7cde679e6aa52bd8a9))
+* use hashless ref for urls ([f278761](https://github.com/json-schema-tools/reference-resolver/commit/f278761c9c934a38de415c9756f2c40b29c8d1cd))
+
 # [1.1.0](https://github.com/json-schema-tools/reference-resolver/compare/1.0.7...1.1.0) (2020-10-28)
 
 
