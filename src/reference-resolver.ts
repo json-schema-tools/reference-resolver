@@ -148,29 +148,25 @@ export default (fetch: any, fs: any) => {
 
     const hashlessRef = hashFragmentSplit[0];
 
-    if (await fileExistsAndReadable(hashlessRef) === true) {
+    const isFileRef = await fileExistsAndReadable(hashlessRef);
+
+    let result;
+    if (isFileRef === true) {
       const fileContents = await readFile(hashlessRef);
-      let reffedSchema;
       try {
-        reffedSchema = JSON.parse(fileContents);
+        result = JSON.parse(fileContents);
       } catch (e) {
         throw new NonJsonRefError({ $ref: ref }, fileContents);
       }
-
-      if (hashFragment) {
-        reffedSchema = resolvePointer(hashFragment, reffedSchema);
-      }
-
-      return reffedSchema;
     } else if (isUrlLike(ref) === false) {
       throw new InvalidFileSystemPathError(ref);
-    }
-
-    let result;
-    try {
-      result = await fetch(hashlessRef).then((r: any) => r.json());
-    } catch (e) {
-      throw new InvalidRemoteURLError(ref);
+    } else {
+      try {
+        const fetchRes = await fetch(hashlessRef);
+        result = await fetchRes.json();
+      } catch (e) {
+        throw new InvalidRemoteURLError(ref);
+      }
     }
 
     if (hashFragment) {
