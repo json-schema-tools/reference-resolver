@@ -1,5 +1,5 @@
 import referenceResolver from "./index";
-import { NonJsonRefError, InvalidJsonPointerRefError, InvalidFileSystemPathError, InvalidRemoteURLError } from "./reference-resolver";
+import { NonJsonRefError, InvalidJsonPointerRefError, InvalidFileSystemPathError, InvalidRemoteURLError, CustomLoaderError } from "./reference-resolver";
 
 describe("referenceResolver", () => {
 
@@ -19,6 +19,16 @@ describe("referenceResolver", () => {
       {},
     );
     expect(resolvedRef.title).toBe("JSONSchema");
+  });
+
+  it("custom loader", async () => {
+    const schema = { title: 'custom protocol' };
+    const resolvedRef = await referenceResolver(
+      "custom-reference",
+      {},
+      () => Promise.resolve(schema)
+    );
+    expect(resolvedRef).toStrictEqual(schema);
   });
 
   it("errors on non-json", async () => {
@@ -86,6 +96,15 @@ describe("referenceResolver", () => {
       expect(e).toBeInstanceOf(InvalidRemoteURLError);
     }
   });
+
+  it("errors if custom loader fails load", async () => {
+    expect.assertions(1);
+    try {
+      await referenceResolver("custom-reference", {}, () => Promise.reject());
+    } catch (e) {
+      expect(e).toBeInstanceOf(CustomLoaderError);
+    }
+  })
 });
 
 

@@ -86,6 +86,19 @@ export class InvalidFileSystemPathError implements Error {
   }
 }
 
+export class CustomLoaderError implements Error {
+  public name: string;
+  public message: string;
+
+  constructor(ref: string, public innerError: any) {
+    this.name = "CusromLoaderError";
+    this.message = [
+      "CusromLoaderError",
+      `Provided custom loader did not load: ${ref}`,
+    ].join("\n");
+  }
+}
+
 const isUrlLike = (s: string) => {
   return s.includes("://") || s.includes("localhost:");
 }
@@ -107,7 +120,12 @@ export class InvalidRemoteURLError implements Error {
   }
 }
 
-export default (fetch: any, fs: any) => {
+interface ReferenceLoader {
+  canFetch(path: string): Promise<boolean>;
+  fetch(path: string): Promise<any>;
+}
+
+function createFileSystemReferenceLoader(fs: any) {
   const fileExistsAndReadable = (f: string): Promise<boolean> => {
     return new Promise((resolve) => {
       return fs.access(f, fs.constants.F_OK | fs.constants.R_OK, (e: any) => { //tslint:disable-line
@@ -120,6 +138,62 @@ export default (fetch: any, fs: any) => {
   const readFile = (f: string): Promise<string> => {
     return new Promise((resolve) => fs.readFile(f, "utf8", (err: any, data: any) => resolve(data)));
   };
+
+  return {
+    canFetch: fileExistsAndReadable,
+    fetch: async (path: string) => {
+      const fileContents = await readFile(path);
+
+      try {
+        return JSON.parse(fileContents);
+      } catch (e) {
+        throw new NonJsonRefError({ $ref: path }, fileContents);
+      }
+    }
+  };
+}
+
+function createHttpReferenceLoader(fetch: any) {
+  return {
+    canFetch: (path: string) => Promise.resolve(isUrlLike(path)),
+    fetch: async (path: string) => {
+      let fetchedContent;
+      try {
+        fetchedContent = await fetch(path);
+        return await fetchedContent.json();
+      } catch (e) {
+        throw new InvalidRemoteURLError(path);
+      }
+    }
+  };
+}
+
+function createCustomReferenceLoader(loader: (path: string) => Promise<any>): ReferenceLoader {
+  return {
+    canFetch: async () => true,
+    fetch: async (path) => {
+      try {
+        return await loader(path);
+      } catch (e) {
+        throw new CustomLoaderError(path, e);
+      }
+    }
+  }
+}
+
+async function loadReference(path: string, ...loaders: ReferenceLoader[]) {
+  for (const loader of loaders) {
+    if (await loader.canFetch(path)) {
+      return await loader.fetch(path);
+    }
+  }
+
+  throw new InvalidFileSystemPathError(path);
+}
+
+export default (fetch: any, fs: any) => {
+  const fileSystemReferenceLoader = createFileSystemReferenceLoader(fs);
+  const httpReferenceLoader = createHttpReferenceLoader(fetch);
 
   const resolvePointer = (ref: string, root: any): any => {
     try {
@@ -135,7 +209,7 @@ export default (fetch: any, fs: any) => {
    * Given a $ref string, it will return the underlying pointed-to value.
    * For remote references, the root object is not used.
    */
-  const resolveReference = async (ref: string, root: any): Promise<any> => {
+  const resolveReference = async (ref: string, root: any, loader?: (path: string) => Promise<any>): Promise<any> => {
     if (ref[0] === "#") {
       return Promise.resolve(resolvePointer(ref, root));
     }
@@ -147,37 +221,19 @@ export default (fetch: any, fs: any) => {
     }
 
     const hashlessRef = hashFragmentSplit[0];
-
-    if (await fileExistsAndReadable(hashlessRef) === true) {
-      const fileContents = await readFile(hashlessRef);
-      let reffedSchema;
-      try {
-        reffedSchema = JSON.parse(fileContents);
-      } catch (e) {
-        throw new NonJsonRefError({ $ref: ref }, fileContents);
-      }
-
-      if (hashFragment) {
-        reffedSchema = resolvePointer(hashFragment, reffedSchema);
-      }
-
-      return reffedSchema;
-    } else if (isUrlLike(ref) === false) {
-      throw new InvalidFileSystemPathError(ref);
-    }
-
-    let result;
-    try {
-      result = await fetch(hashlessRef).then((r: any) => r.json());
-    } catch (e) {
-      throw new InvalidRemoteURLError(ref);
+    let reffedSchema;
+    if (loader) {
+      const customRefernceLoader = createCustomReferenceLoader(loader);
+      reffedSchema = await loadReference(hashlessRef, customRefernceLoader);
+    } else {
+      reffedSchema = await loadReference(hashlessRef, fileSystemReferenceLoader, httpReferenceLoader);
     }
 
     if (hashFragment) {
-      result = resolvePointer(hashFragment, result);
+      reffedSchema = resolvePointer(hashFragment, reffedSchema);
     }
 
-    return result;
+    return reffedSchema;
   };
 
   return resolveReference;

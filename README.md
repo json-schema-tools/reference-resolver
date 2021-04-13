@@ -26,7 +26,7 @@ const referenceResolver = require("@json-schema-tools/reference-resolver").defau
 referenceResolver("#/properties/foo", { properties: { foo: 123 } }); // returns '123'
 referenceResolver("https://foo.com/", {}); // returns what ever json foo.com returns
 referenceResolver("../my-object.json", {}); // you get teh idea
-
+referenceResolver("custom-reference", {}, (ref) => { /* some logic to retrieve reference JSON */ }); // returns resolved reference using customLoader to load json definitions
 ```
 
 ### Contributing
