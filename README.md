@@ -13,21 +13,47 @@
 
 Takes a $ref string and a root object, and returns the referenced value.
 
-Works in browser & in node (file system refs ignored in browser)
+Works in browser & in node (file system refs ignored in browser).
+
+Easily add support for your own protocols.
 
 ## Getting Started
 
 `npm install @json-schema-tools/reference-resolver`
 
 ```typescript
-const referenceResolver = require("@json-schema-tools/reference-resolver").default;
+import refRes from "@json-schema-tools/reference-resolver";
 
-
-referenceResolver("#/properties/foo", { properties: { foo: 123 } }); // returns '123'
-referenceResolver("https://foo.com/", {}); // returns what ever json foo.com returns
-referenceResolver("../my-object.json", {}); // you get teh idea
-
+refRes.resolve("#/properties/foo", { properties: { foo: true } }); // returns true
+refRes.resolve("https://foo.com/"); // returns what ever json foo.com returns
+refRef.resolve("../my-object.json"); // you get teh idea
 ```
+
+## Adding custom protocol handlers
+
+```typescript
+import referenceResolver from "@json-schema-tools/reference-resolver";
+import JSONSchema from "@json-schema-tools/meta-schema";
+
+referenceResolver.protocolHandlerMap.ipfs = (uri) => {
+   const pretendItsFetchedFromIpfs = {
+     title: "foo", 
+     type: "string",
+   } as JSONSchema;
+   return Promise.resolve(fetchedFromIpfs);
+};
+
+referenceResolver.protocolHandlerMap["customprotocol"] = (uri) => {
+   return Promise.resolve({ 
+     type: "string", 
+     title: uri.replace("customprotocol://", ""),
+   });
+};
+
+referenceResolver.resolve("ipfs://80088008800880088008");
+referenceResolver.resolve("customprotocol://foobar");
+```
+
 
 ### Contributing
 
