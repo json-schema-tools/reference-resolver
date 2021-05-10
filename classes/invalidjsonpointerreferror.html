@@ -71,17 +71,6 @@
 					<div class="lead">
 						<p>Error thrown when a JSON pointer is provided but is not parseable as per the RFC6901</p>
 					</div>
-					<dl class="tsd-comment-tags">
-						<dt>example</dt>
-						<dd><pre><code class="language-typescript">
-<span class="hljs-keyword">import</span> Dereferencer, { InvalidJsonPointerRefError } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@json-schema-tools/dereferencer&quot;</span>;
-<span class="hljs-keyword">const</span> dereffer = <span class="hljs-keyword">new</span> Dereferencer({});
-<span class="hljs-keyword">try</span> { <span class="hljs-keyword">await</span> dereffer.resolve(); }
-<span class="hljs-function"><span class="hljs-title">catch</span>(<span class="hljs-params">e</span>)</span> {
-  <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> InvalidJsonPointerRefError) { ... }
-}</code></pre>
-						</dd>
-					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -124,19 +113,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Invalid<wbr>Json<wbr>Pointer<wbr>Ref<wbr>Error<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="invalidjsonpointerreferror.html" class="tsd-signature-type">InvalidJsonPointerRefError</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Invalid<wbr>Json<wbr>Pointer<wbr>Ref<wbr>Error<span class="tsd-signature-symbol">(</span>ref<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, additionalMsg<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="invalidjsonpointerreferror.html" class="tsd-signature-type">InvalidJsonPointerRefError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/8c6f7c5/src/reference-resolver.ts#L50">reference-resolver.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/resolve-pointer.ts#L9">resolve-pointer.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>obj: <span class="tsd-signature-type">any</span></h5>
+									<h5>ref: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>additionalMsg: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="invalidjsonpointerreferror.html" class="tsd-signature-type">InvalidJsonPointerRefError</a></h4>
@@ -152,7 +144,7 @@
 					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/8c6f7c5/src/reference-resolver.ts#L50">reference-resolver.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/resolve-pointer.ts#L9">resolve-pointer.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -162,7 +154,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/8c6f7c5/src/reference-resolver.ts#L49">reference-resolver.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/resolve-pointer.ts#L8">resolve-pointer.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>

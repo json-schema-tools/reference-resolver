@@ -74,19 +74,82 @@
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/invalidjsonpointerreferror.html" class="tsd-kind-icon">Invalid<wbr>Json<wbr>Pointer<wbr>Ref<wbr>Error</a></li>
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/invalidremoteurlerror.html" class="tsd-kind-icon">Invalid<wbr>RemoteURLError</a></li>
 								<li class="tsd-kind-class tsd-is-external"><a href="classes/nonjsonreferror.html" class="tsd-kind-icon">Non<wbr>Json<wbr>Ref<wbr>Error</a></li>
+								<li class="tsd-kind-class tsd-is-external"><a href="classes/notresolvableerror.html" class="tsd-kind-icon">Not<wbr>Resolvable<wbr>Error</a></li>
+								<li class="tsd-kind-class tsd-is-external"><a href="classes/referenceresolver.html" class="tsd-kind-icon">Reference<wbr>Resolver</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-is-external"><a href="interfaces/protocolhandlermap.html" class="tsd-kind-icon">Protocol<wbr>Handler<wbr>Map</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-is-external"><a href="globals.html#fetchhandler" class="tsd-kind-icon">fetch<wbr>Handler</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#fileexistsandreadable" class="tsd-kind-icon">file<wbr>Exists<wbr>And<wbr>Readable</a></li>
 								<li class="tsd-kind-function tsd-is-external"><a href="globals.html#isurllike" class="tsd-kind-icon">is<wbr>Url<wbr>Like</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#readfile" class="tsd-kind-icon">read<wbr>File</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Object literals</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-object-literal"><a href="globals.html#nodeprotocolhandlermap" class="tsd-kind-icon">node<wbr>Protocol<wbr>Handler<wbr>Map</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
+					<a name="fetchhandler" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> fetch<wbr>Handler</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Handler<span class="tsd-signature-symbol">(</span>uri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">JSONSchema</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/default-protocol-handler-map.ts#L6">default-protocol-handler-map.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>uri: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">JSONSchema</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="fileexistsandreadable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> file<wbr>Exists<wbr>And<wbr>Readable</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">file<wbr>Exists<wbr>And<wbr>Readable<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/index.ts#L7">index.ts:7</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>f: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
 					<a name="isurllike" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Url<wbr>Like</h3>
@@ -97,7 +160,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/8c6f7c5/src/reference-resolver.ts#L89">reference-resolver.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/reference-resolver.ts#L9">reference-resolver.ts:9</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -109,6 +172,65 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="readfile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> read<wbr>File</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">read<wbr>File<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/index.ts#L16">index.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>f: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Object literals</h2>
+				<section class="tsd-panel tsd-member tsd-kind-object-literal">
+					<a name="nodeprotocolhandlermap" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> node<wbr>Protocol<wbr>Handler<wbr>Map</h3>
+					<div class="tsd-signature tsd-kind-icon">node<wbr>Protocol<wbr>Handler<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/index.ts#L20">index.ts:20</a></li>
+						</ul>
+					</aside>
+					<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-object-literal">
+						<a name="nodeprotocolhandlermap.file" class="tsd-anchor"></a>
+						<h3>file</h3>
+						<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-object-literal">
+							<li class="tsd-signature tsd-kind-icon">file<span class="tsd-signature-symbol">(</span>uri<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONSchemaObject</span><span class="tsd-signature-symbol">&gt;</span></li>
+						</ul>
+						<ul class="tsd-descriptions">
+							<li class="tsd-description">
+								<aside class="tsd-sources">
+									<ul>
+										<li>Defined in <a href="https://github.com/json-schema-tools/reference-resolver/blob/61d77e9/src/index.ts#L22">index.ts:22</a></li>
+									</ul>
+								</aside>
+								<h4 class="tsd-parameters-title">Parameters</h4>
+								<ul class="tsd-parameters">
+									<li>
+										<h5>uri: <span class="tsd-signature-type">string</span></h5>
+									</li>
+								</ul>
+								<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONSchemaObject</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							</li>
+						</ul>
+					</section>
 				</section>
 			</section>
 		</div>

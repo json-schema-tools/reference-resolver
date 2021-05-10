@@ -78,18 +78,40 @@
 					</span>
 				</center>
 				<p>Takes a $ref string and a root object, and returns the referenced value.</p>
-				<p>Works in browser &amp; in node (file system refs ignored in browser)</p>
+				<p>Works in browser &amp; in node (file system refs ignored in browser).</p>
+				<p>Easily add support for your own protocols.</p>
 				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
 					<h2>Getting Started</h2>
 				</a>
 				<p><code>npm install @json-schema-tools/reference-resolver</code></p>
-				<pre><code class="language-typescript"><span class="hljs-keyword">const</span> referenceResolver = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@json-schema-tools/reference-resolver&quot;</span>).default;
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> refRes <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@json-schema-tools/reference-resolver&quot;</span>;
 
+refRes.resolve(<span class="hljs-string">&quot;#/properties/foo&quot;</span>, { <span class="hljs-attr">properties</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-literal">true</span> } }); <span class="hljs-comment">// returns true</span>
+refRes.resolve(<span class="hljs-string">&quot;https://foo.com/&quot;</span>); <span class="hljs-comment">// returns what ever json foo.com returns</span>
+refRef.resolve(<span class="hljs-string">&quot;../my-object.json&quot;</span>); <span class="hljs-comment">// you get teh idea</span></code></pre>
+				<a href="#adding-custom-protocol-handlers" id="adding-custom-protocol-handlers" style="color: inherit; text-decoration: none;">
+					<h2>Adding custom protocol handlers</h2>
+				</a>
+				<pre><code class="language-typescript"><span class="hljs-keyword">import</span> referenceResolver <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@json-schema-tools/reference-resolver&quot;</span>;
+<span class="hljs-keyword">import</span> JSONSchema <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@json-schema-tools/meta-schema&quot;</span>;
 
-referenceResolver(<span class="hljs-string">&quot;#/properties/foo&quot;</span>, { <span class="hljs-attr">properties</span>: { <span class="hljs-attr">foo</span>: <span class="hljs-number">123</span> } }); <span class="hljs-comment">// returns &#x27;123&#x27;</span>
-referenceResolver(<span class="hljs-string">&quot;https://foo.com/&quot;</span>, {}); <span class="hljs-comment">// returns what ever json foo.com returns</span>
-referenceResolver(<span class="hljs-string">&quot;../my-object.json&quot;</span>, {}); <span class="hljs-comment">// you get teh idea</span>
-</code></pre>
+referenceResolver.protocolHandlerMap.ipfs = <span class="hljs-function">(<span class="hljs-params">uri</span>) =&gt;</span> {
+   <span class="hljs-keyword">const</span> pretendItsFetchedFromIpfs = {
+     <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;foo&quot;</span>, 
+     <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;string&quot;</span>,
+   } <span class="hljs-keyword">as</span> JSONSchema;
+   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(fetchedFromIpfs);
+};
+
+referenceResolver.protocolHandlerMap[<span class="hljs-string">&quot;customprotocol&quot;</span>] = <span class="hljs-function">(<span class="hljs-params">uri</span>) =&gt;</span> {
+   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve({ 
+     <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;string&quot;</span>, 
+     <span class="hljs-attr">title</span>: uri.replace(<span class="hljs-string">&quot;customprotocol://&quot;</span>, <span class="hljs-string">&quot;&quot;</span>),
+   });
+};
+
+referenceResolver.resolve(<span class="hljs-string">&quot;ipfs://80088008800880088008&quot;</span>);
+referenceResolver.resolve(<span class="hljs-string">&quot;customprotocol://foobar&quot;</span>);</code></pre>
 				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
 					<h3>Contributing</h3>
 				</a>
