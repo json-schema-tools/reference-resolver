@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/json-schema-tools/reference-resolver/compare/1.2.0...1.2.1) (2021-05-10)
+
+
+### Bug Fixes
+
+* npm audit fix ([04a0d8b](https://github.com/json-schema-tools/reference-resolver/commit/04a0d8b0ab8fda33ce1ebac74eefe42ad95a98a2))
+* update typedoc config ([c876ef2](https://github.com/json-schema-tools/reference-resolver/commit/c876ef2458d99010fdbb68835a37b27ef83eba94))
+
 # [1.2.0](https://github.com/json-schema-tools/reference-resolver/compare/1.1.1...1.2.0) (2021-05-10)
 
 
