@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/json-schema-tools/reference-resolver/compare/1.1.1...1.2.0) (2021-05-10)
+
+
+### Features
+
+* custom protocols alt ([61ef640](https://github.com/json-schema-tools/reference-resolver/commit/61ef640430de7d077368eb929c6e3b91ffbc8ddf))
+
 ## [1.1.1](https://github.com/json-schema-tools/reference-resolver/compare/1.1.0...1.1.1) (2020-11-03)
 
 
