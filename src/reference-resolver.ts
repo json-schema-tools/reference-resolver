@@ -1,184 +1,75 @@
-import Ptr from "@json-schema-spec/json-pointer";
-
-/**
- * Error thrown when the fetched reference is not properly formatted JSON or is encoded
- * incorrectly
- *
- * @example
- * ```typescript
- *
- * import Dereferencer, { NonJsonRefError } from "@json-schema-tools/dereferencer";
- * const dereffer = new Dereferencer({});
- * try { await dereffer.resolve(); }
- * catch(e) {
- *   if (e instanceof NonJsonRefError) { ... }
- * }
- * ```
- *
- */
-export class NonJsonRefError implements Error {
-  public message: string;
-  public name: string;
-
-  constructor(obj: any, nonJson: string) {
-    this.name = "NonJsonRefError";
-    this.message = [
-      "NonJsonRefError",
-      `The resolved value at the reference: ${obj.$ref} was not JSON.parse 'able`,
-      `The non-json content in question: ${nonJson}`,
-    ].join("\n");
-  }
-}
-
-/**
- * Error thrown when a JSON pointer is provided but is not parseable as per the RFC6901
- *
- * @example
- * ```typescript
- *
- * import Dereferencer, { InvalidJsonPointerRefError } from "@json-schema-tools/dereferencer";
- * const dereffer = new Dereferencer({});
- * try { await dereffer.resolve(); }
- * catch(e) {
- *   if (e instanceof InvalidJsonPointerRefError) { ... }
- * }
- * ```
- *
- */
-export class InvalidJsonPointerRefError implements Error {
-  public name: string;
-  public message: string;
-
-  constructor(obj: any) {
-    this.name = "InvalidJsonPointerRefError";
-    this.message = [
-      "InvalidJsonPointerRefError",
-      `The provided RFC6901 JSON Pointer is invalid: ${obj.$ref}`,
-    ].join("\n");
-  }
-}
-
-/**
- * Error thrown when given an invalid file system path as a reference.
- *
- * @example
- * ```typescript
- *
- * import Dereferencer, { InvalidFileSystemPathError } from "@json-schema-tools/dereferencer";
- * const dereffer = new Dereferencer({});
- * try { await dereffer.resolve(); }
- * catch(e) {
- *   if (e instanceof InvalidFileSystemPathError) { ... }
- * }
- * ```
- *
- */
-export class InvalidFileSystemPathError implements Error {
-  public name: string;
-  public message: string;
-
-  constructor(ref: string) {
-    this.name = "InvalidFileSystemPathError";
-    this.message = [
-      "InvalidFileSystemPathError",
-      `The path was not resolvable: ${ref}`,
-    ].join("\n");
-  }
-}
+import { JSONSchema } from "@json-schema-tools/meta-schema";
+import {
+  InvalidFileSystemPathError,
+  NonJsonRefError,
+  NotResolvableError
+} from "./errors";
+import resolvePointer from "./resolve-pointer";
 
 const isUrlLike = (s: string) => {
-  return s.includes("://") || s.includes("localhost:");
+  return s.includes("://");
 }
 
-/**
- * Error thrown when given an invalid file system path as a reference.
- *
- */
-export class InvalidRemoteURLError implements Error {
-  public message: string;
-  public name: string;
+export interface ProtocolHandlerMap {
+  [protocol: string]: (uri: string) => Promise<JSONSchema | undefined>;
+};
 
-  constructor(ref: string) {
-    this.name = "InvalidRemoteURLError";
-    this.message = [
-      "InvalidRemoteURLError",
-      `The url was not resolvable: ${ref}`,
-    ].join("\n");
-  }
-}
-
-export default (fetch: any, fs: any) => {
-  const fileExistsAndReadable = (f: string): Promise<boolean> => {
-    return new Promise((resolve) => {
-      return fs.access(f, fs.constants.F_OK | fs.constants.R_OK, (e: any) => { //tslint:disable-line
-        if (e) { return resolve(false); }
-        return resolve(true);
-      });
-    });
-  };
-
-  const readFile = (f: string): Promise<string> => {
-    return new Promise((resolve) => fs.readFile(f, "utf8", (err: any, data: any) => resolve(data)));
-  };
-
-  const resolvePointer = (ref: string, root: any): any => {
-    try {
-      const withoutHash = ref.replace("#", "");
-      const pointer = Ptr.parse(withoutHash);
-      return pointer.eval(root);
-    } catch (e) {
-      throw new InvalidJsonPointerRefError({ $ref: ref });
-    }
-  };
+export default class ReferenceResolver {
+  constructor(public protocolHandlerMap: ProtocolHandlerMap) { }
 
   /**
    * Given a $ref string, it will return the underlying pointed-to value.
    * For remote references, the root object is not used.
    */
-  const resolveReference = async (ref: string, root: any): Promise<any> => {
+  public async resolve(ref: string, root: JSONSchema = {}): Promise<JSONSchema> {
+    // Check if its an internal reference that starts from the root
+    // Internal references.
     if (ref[0] === "#") {
       return Promise.resolve(resolvePointer(ref, root));
     }
 
+    // Before we check anything else, remove everything after the hash.
+    // The hash fragment, if anything, is later applied as an internal reference.
     const hashFragmentSplit = ref.split("#");
     let hashFragment;
     if (hashFragmentSplit.length > 1) {
       hashFragment = hashFragmentSplit[hashFragmentSplit.length - 1];
     }
-
     const hashlessRef = hashFragmentSplit[0];
 
-    if (await fileExistsAndReadable(hashlessRef) === true) {
-      const fileContents = await readFile(hashlessRef);
-      let reffedSchema;
-      try {
-        reffedSchema = JSON.parse(fileContents);
-      } catch (e) {
-        throw new NonJsonRefError({ $ref: ref }, fileContents);
-      }
-
+    // check if its a runtime-relative filepath before anything (use the 'file')
+    // protocol handler
+    let relativePathSchema;
+    try {
+      relativePathSchema = await this.protocolHandlerMap.file(hashlessRef);
+    } catch (e) {
+      throw new NonJsonRefError({ $ref: ref }, e.message);
+    }
+    if (relativePathSchema !== undefined) {
+      let schema: JSONSchema = relativePathSchema;
       if (hashFragment) {
-        reffedSchema = resolvePointer(hashFragment, reffedSchema);
+        schema = resolvePointer(hashFragment, schema);
       }
-
-      return reffedSchema;
+      return schema;
     } else if (isUrlLike(ref) === false) {
       throw new InvalidFileSystemPathError(ref);
     }
 
-    let result;
-    try {
-      result = await fetch(hashlessRef).then((r: any) => r.json());
-    } catch (e) {
-      throw new InvalidRemoteURLError(ref);
+    for (const protocol of Object.keys(this.protocolHandlerMap)) {
+      if (hashlessRef.startsWith(protocol)) {
+        const maybeSchema = await this.protocolHandlerMap[protocol](hashlessRef);
+
+        if (maybeSchema !== undefined) {
+          let schema: JSONSchema = maybeSchema;
+          if (hashFragment) {
+            schema = resolvePointer(hashFragment, schema);
+          }
+          return schema;
+        }
+      }
     }
 
-    if (hashFragment) {
-      result = resolvePointer(hashFragment, result);
-    }
-
-    return result;
-  };
-
-  return resolveReference;
-};
+    // if we get to the end and nothing has handled it yet, then we are hooped.
+    throw new NotResolvableError(ref);
+  }
+}
