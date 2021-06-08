@@ -1,3 +1,11 @@
+## [1.2.2](https://github.com/json-schema-tools/reference-resolver/compare/1.2.1...1.2.2) (2021-06-08)
+
+
+### Bug Fixes
+
+* lock typescript version ([92fa412](https://github.com/json-schema-tools/reference-resolver/commit/92fa412653268d4faca5686abfe5f3121b6d4005))
+* update deps ([f506b20](https://github.com/json-schema-tools/reference-resolver/commit/f506b20694d48032e2893f3ef25d602fe13cf591))
+
 ## [1.2.1](https://github.com/json-schema-tools/reference-resolver/compare/1.2.0...1.2.1) (2021-05-10)
 
 
