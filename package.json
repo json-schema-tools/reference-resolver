@@ -29,7 +29,7 @@
     "!build/**/*.test.*"
   ],
   "devDependencies": {
-    "@json-schema-tools/meta-schema": "^1.6.10",
+    "@json-schema-tools/meta-schema": "^1.6.18",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.2",
