@@ -71,6 +71,15 @@ describe("referenceResolver", () => {
     expect(resolved.$ref).toBe("./src/test-schema.json");
   });
 
+  it("works with nested folders when using different root context", async () => {
+    expect.assertions(1);
+    const resolved = await referenceResolver
+      .resolve("./test-schema-1.json", {
+        "$ref": "./nestedtest/test-schema.json"
+      }) as JSONSchemaObject;
+    expect(resolved.$ref).toBe("./src/test-schema.json");
+  });
+
   it("errors on urls that arent real", async () => {
     expect.assertions(1);
     try {
