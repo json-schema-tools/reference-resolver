@@ -11,7 +11,7 @@ const isUrlLike = (s: string) => {
 }
 
 export interface ProtocolHandlerMap {
-  [protocol: string]: (uri: string) => Promise<JSONSchema | undefined>;
+  [protocol: string]: (uri: string, root: JSONSchema) => Promise<JSONSchema | undefined>;
 };
 
 export default class ReferenceResolver {
@@ -41,7 +41,7 @@ export default class ReferenceResolver {
     // protocol handler
     let relativePathSchema;
     try {
-      relativePathSchema = await this.protocolHandlerMap.file(hashlessRef);
+      relativePathSchema = await this.protocolHandlerMap.file(hashlessRef, root);
     } catch (e) {
       throw new NonJsonRefError({ $ref: ref }, e.message);
     }
@@ -57,7 +57,7 @@ export default class ReferenceResolver {
 
     for (const protocol of Object.keys(this.protocolHandlerMap)) {
       if (hashlessRef.startsWith(protocol)) {
-        const maybeSchema = await this.protocolHandlerMap[protocol](hashlessRef);
+        const maybeSchema = await this.protocolHandlerMap[protocol](hashlessRef, root);
 
         if (maybeSchema !== undefined) {
           let schema: JSONSchema = maybeSchema;
