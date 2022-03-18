@@ -1,3 +1,11 @@
+## [1.2.4](https://github.com/json-schema-tools/reference-resolver/compare/1.2.3...1.2.4) (2022-03-18)
+
+
+### Bug Fixes
+
+* node version for CirceCI ([e111a7c](https://github.com/json-schema-tools/reference-resolver/commit/e111a7c02ad4f5057071db38c896827f35e66052))
+* This corrects the behavior for nested resolution for json schemas. ([497c56f](https://github.com/json-schema-tools/reference-resolver/commit/497c56f995f7927bcd78fd8d457f4a8b7a3bcca1))
+
 ## [1.2.3](https://github.com/json-schema-tools/reference-resolver/compare/1.2.2...1.2.3) (2021-06-24)
 
 
