@@ -32,7 +32,7 @@
     "@json-schema-tools/meta-schema": "^1.6.18",
     "@types/isomorphic-fetch": "0.0.35",
     "@types/jest": "^26.0.23",
-    "@types/node": "^15.12.2",
+    "@types/node": "^18.0.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",
     "tslint": "^6.1.3",
