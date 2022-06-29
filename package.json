@@ -30,7 +30,7 @@
   ],
   "devDependencies": {
     "@json-schema-tools/meta-schema": "^1.6.18",
-    "@types/isomorphic-fetch": "0.0.35",
+    "@types/isomorphic-fetch": "0.0.36",
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.2",
     "jest": "^24.9.0",
