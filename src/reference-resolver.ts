@@ -12,7 +12,7 @@ const isUrlLike = (s: string) => {
 
 export interface ProtocolHandlerMap {
   [protocol: string]: (uri: string, root: JSONSchema) => Promise<JSONSchema | undefined>;
-};
+}
 
 export default class ReferenceResolver {
   constructor(public protocolHandlerMap: ProtocolHandlerMap) { }
@@ -43,7 +43,7 @@ export default class ReferenceResolver {
     try {
       relativePathSchema = await this.protocolHandlerMap.file(hashlessRef, root);
     } catch (e) {
-      throw new NonJsonRefError({ $ref: ref }, e.message);
+      throw new NonJsonRefError({ $ref: ref }, (e as Error).message);
     }
     if (relativePathSchema !== undefined) {
       let schema: JSONSchema = relativePathSchema;

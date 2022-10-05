@@ -3,7 +3,7 @@ import { InvalidRemoteURLError, NonJsonRefError } from "./errors";
 import { JSONSchema } from "@json-schema-tools/meta-schema";
 import fetch from "isomorphic-fetch";
 
-const fetchHandler = async (uri: string, root: JSONSchema): Promise<JSONSchema> => {
+const fetchHandler = async (uri: string): Promise<JSONSchema> => {
   let schemaReq;
   try {
     schemaReq = await fetch(uri);
@@ -14,7 +14,7 @@ const fetchHandler = async (uri: string, root: JSONSchema): Promise<JSONSchema> 
   try {
     return await schemaReq.json() as JSONSchema;
   } catch (e) {
-    throw new NonJsonRefError({ $ref: uri }, e.message);
+    throw new NonJsonRefError({ $ref: uri }, (e as Error).message);
   }
 };
 

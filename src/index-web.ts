@@ -1,4 +1,3 @@
-import fetch from "isomorphic-fetch";
 import defaultProtocolHandlerMap from "./default-protocol-handler-map";
 import ReferenceResolver, { ProtocolHandlerMap } from "./reference-resolver";
 
