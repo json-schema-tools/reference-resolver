@@ -8,5 +8,13 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+  ],
+  overrides: [
+    {
+      files: ["src/*.ts"],
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
   ]
 };
