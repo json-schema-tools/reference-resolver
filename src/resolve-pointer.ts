@@ -26,6 +26,6 @@ export default (ref: string, root: any): any => {
     const pointer = Ptr.parse(withoutHash);
     return pointer.eval(root);
   } catch (e) {
-    throw new InvalidJsonPointerRefError(ref, e.message);
+    throw new InvalidJsonPointerRefError(ref, (e as Error).message);
   }
 };
