@@ -1,3 +1,13 @@
+## [1.2.5](https://github.com/json-schema-tools/reference-resolver/compare/1.2.4...1.2.5) (2022-10-05)
+
+
+### Bug Fixes
+
+* bump node version in circle and update container ([f1d596a](https://github.com/json-schema-tools/reference-resolver/commit/f1d596acb7cf7780e6cdfd45e32725055423d003))
+* remove dead readme badge ([1733530](https://github.com/json-schema-tools/reference-resolver/commit/1733530be8509e4741778dfabd6c25c2e7804830))
+* typedoc building again ([5b2a179](https://github.com/json-schema-tools/reference-resolver/commit/5b2a1794d9b1bd777db68c5c6a03ae7793fe7d06))
+* update linting and bump all versions ([4e81683](https://github.com/json-schema-tools/reference-resolver/commit/4e8168321e81a1eb667bcc4b66b302a90f3989b4))
+
 ## [1.2.4](https://github.com/json-schema-tools/reference-resolver/compare/1.2.3...1.2.4) (2022-03-18)
 
 
