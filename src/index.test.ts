@@ -146,6 +146,13 @@ describe("refs with hash fragment / internal reference component", () => {
 });
 
 
+describe("files", () => {
+  it.only("works with nested file refs that are relative to where they are", async () => {
+    const result = await referenceResolver.resolve('./src/nested-relative/foo.json');
+    expect(result).toBe({});
+  });
+});
+
 describe("adding custom protocol handlers", () => {
   it("has a way to add ipfs", () => {
     referenceResolver.protocolHandlerMap.ipfs = () => {

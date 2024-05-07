@@ -19,14 +19,19 @@ const readFile = (f: string): Promise<string> => {
 
 const nodeProtocolHandlerMap: ProtocolHandlerMap = {
   ...defaultProtocolHandlerMap,
-  "file": async (uri, root: JSONSchema) => {
+  file: async (uri, root: JSONSchema): Promise<JSONSchema | undefined> => {
     let filePath = uri;
     const ref = (root as JSONSchemaObject).$ref;
-    if (ref && ref !== uri && await fileExistsAndReadable(ref)) filePath = `${path.parse(ref).dir}/${uri}`;
+    if (ref && ref !== uri && await fileExistsAndReadable(ref)) {
+      filePath = `${path.parse(ref).dir}/${uri}`;
+    }
+
     if (await fileExistsAndReadable(filePath) === true) {
       const fileContents = await readFile(filePath);
       return JSON.parse(fileContents) as JSONSchema;
     }
+
+    return;
   },
 }
 
