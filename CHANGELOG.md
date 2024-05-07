@@ -1,3 +1,11 @@
+## [1.2.6](https://github.com/json-schema-tools/reference-resolver/compare/1.2.5...1.2.6) (2024-05-07)
+
+
+### Bug Fixes
+
+* bump meta schema dep ([38c4484](https://github.com/json-schema-tools/reference-resolver/commit/38c4484922f347511bbc2fd75500009cccbaee70))
+* node version bump ([54639be](https://github.com/json-schema-tools/reference-resolver/commit/54639bee374bba40aa5ebde24731e9f94dbdf474))
+
 ## [1.2.5](https://github.com/json-schema-tools/reference-resolver/compare/1.2.4...1.2.5) (2022-10-05)
 
 
