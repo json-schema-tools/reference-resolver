@@ -33,7 +33,7 @@
     "@json-schema-tools/meta-schema": "^1.7.5",
     "@types/isomorphic-fetch": "^0.0.39",
     "@types/jest": "^29.1.1",
-    "@types/node": "^20.12.7",
+    "@types/node": "^22.5.0",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
     "eslint": "^8.24.0",
