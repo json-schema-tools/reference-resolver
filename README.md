@@ -3,7 +3,6 @@
 <center>
   <span>
     <img alt="CircleCI branch" src="https://img.shields.io/circleci/project/github/json-schema-tools/reference-resolver/master.svg">
-    <img src="https://codecov.io/gh/json-schema-tools/reference-resolver/branch/master/graph/badge.svg" />
     <img alt="npm" src="https://img.shields.io/npm/dt/@json-schema-tools/reference-resolver.svg" />
     <img alt="GitHub release" src="https://img.shields.io/github/release/json-schema-tools/reference-resolver.svg" />
     <img alt="GitHub commits since latest release" src="https://img.shields.io/github/commits-since/json-schema-tools/reference-resolver/latest.svg" />
