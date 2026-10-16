@@ -7,7 +7,7 @@ const fetchHandler = async (uri: string): Promise<JSONSchema> => {
   let schemaReq;
   try {
     schemaReq = await fetch(uri);
-  } catch (e) {
+  } catch {
     throw new InvalidRemoteURLError(uri);
   }
 
