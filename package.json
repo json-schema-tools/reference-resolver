@@ -1,6 +1,6 @@
 {
   "name": "@json-schema-tools/reference-resolver",
-  "version": "0.0.0-development",
+  "version": "1.3.0",
   "description": "Turns a $ref into a JSONSchema",
   "main": "build/index.js",
   "browser": "build/index-web.js",

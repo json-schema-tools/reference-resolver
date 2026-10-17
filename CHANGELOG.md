@@ -6,6 +6,18 @@
 * bump meta schema dep ([38c4484](https://github.com/json-schema-tools/reference-resolver/commit/38c4484922f347511bbc2fd75500009cccbaee70))
 * node version bump ([54639be](https://github.com/json-schema-tools/reference-resolver/commit/54639bee374bba40aa5ebde24731e9f94dbdf474))
 
+## [1.3.0](https://github.com/json-schema-tools/reference-resolver/compare/1.2.6...1.3.0) (2026-10-17)
+
+
+### Features
+
+* run web bundle tests in a real browser ([#21](https://github.com/json-schema-tools/reference-resolver/issues/21)) ([#618](https://github.com/json-schema-tools/reference-resolver/issues/618)) ([2f453e3](https://github.com/json-schema-tools/reference-resolver/commit/2f453e380e86b66ba0a4672bd90e1b3b90a77c97))
+
+
+### Bug Fixes
+
+* return any from resolve() ([#182](https://github.com/json-schema-tools/reference-resolver/issues/182)) ([#617](https://github.com/json-schema-tools/reference-resolver/issues/617)) ([18a4abd](https://github.com/json-schema-tools/reference-resolver/commit/18a4abddb974e0f4bbede2a1830f9c56e49f3bbc))
+
 ## [1.2.5](https://github.com/json-schema-tools/reference-resolver/compare/1.2.4...1.2.5) (2022-10-05)
 
 
