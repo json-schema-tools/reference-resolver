@@ -21,7 +21,7 @@ export default class ReferenceResolver {
    * Given a $ref string, it will return the underlying pointed-to value.
    * For remote references, the root object is not used.
    */
-  public async resolve(ref: string, root: JSONSchema = {}): Promise<JSONSchema> {
+  public async resolve(ref: string, root: JSONSchema = {}): Promise<any> {
     // Check if its an internal reference that starts from the root
     // Internal references.
     if (ref[0] === "#") {
