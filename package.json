@@ -46,7 +46,7 @@
     "typedoc": "^0.26.6",
     "typescript": "^5.5.4",
     "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^7.2.3"
   },
   "dependencies": {
     "@json-schema-spec/json-pointer": "^0.1.2",
